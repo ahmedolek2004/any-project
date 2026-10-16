@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A bilingual searchable concept catalogue of software system ideas, with concise explanations in English and Arabic.">
+<title>Bilingual Software Ideas Catalogue — Concept Explorer / كتالوج أفكار البرمجيات ثنائي اللغة</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233b;--line:#2b3854;--text:#eef3ff;--muted:#a7b4ce;--accent:#8db7ff;--accent2:#9be7d5;--shadow:0 14px 40px #0003}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#1a2b4d 0,transparent 42%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--accent)}button,input,select,textarea{font:inherit}.wrap{max-width:1400px;margin:auto;padding:28px 22px 70px}
+.hero{padding:34px 0 24px;display:grid;grid-template-columns:1.4fr .6fr;gap:24px;align-items:end}.eyebrow{color:var(--accent2);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.03em;margin:12px 0 16px}.hero p{color:var(--muted);max-width:760px;margin:0}.hero-card{background:linear-gradient(135deg,#182947,#111a2d);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}.hero-card strong{font-size:2.2rem;display:block}.hero-card span{color:var(--muted);font-size:.9rem}
+.toolbar{position:sticky;top:0;z-index:10;background:#0b1020eF;backdrop-filter:blur(18px);padding:14px 0;border-bottom:1px solid #2b385480}.controls{display:grid;grid-template-columns:minmax(200px,1fr) 220px 180px auto;gap:10px}.field{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--text);outline:none}.field:focus{border-color:var(--accent);box-shadow:0 0 0 3px #8db7ff20}.btn{background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:10px 14px;cursor:pointer}.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--accent);color:#0a1427;border-color:transparent;font-weight:800}
+.meta-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:14px 0 4px;color:var(--muted);font-size:.9rem}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.chip{border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--panel);color:var(--muted);cursor:pointer;font-size:.85rem}.chip.active,.chip:hover{background:#213454;color:var(--text);border-color:#668ac4}
+.layout{display:grid;grid-template-columns:255px minmax(0,1fr);gap:22px;align-items:start}.sidebar{position:sticky;top:126px;max-height:calc(100vh - 145px);overflow:auto;background:#10182a;border:1px solid var(--line);border-radius:18px;padding:14px}.sidebar h2{font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:0 8px}.nav-item{display:flex;justify-content:space-between;gap:10px;text-align:left;width:100%;padding:9px 10px;background:transparent;border:0;border-radius:9px;color:var(--muted);cursor:pointer}.nav-item:hover,.nav-item.active{background:var(--panel2);color:var(--text)}.count{color:#8e9fbd;font-size:.8rem}
+.category{margin-bottom:28px;scroll-margin-top:150px}.cat-head{display:flex;align-items:end;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}.cat-head h2{font-size:1.45rem;margin:0;letter-spacing:-.02em}.cat-head span{color:var(--muted);font-size:.85rem}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{background:linear-gradient(145deg,#151f35,#10182a);border:1px solid var(--line);border-radius:16px;padding:16px;min-height:175px;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}.card:hover{transform:translateY(-2px);border-color:#5874a3}.card-top{display:flex;align-items:start;gap:10px}.icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:10px;background:#263956;color:var(--accent2);font-weight:900;font-size:.8rem}.card h3{font-size:.95rem;line-height:1.3;margin:3px 0 0}.card p{color:var(--muted);font-size:.85rem;margin:10px 0 0}.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:15px}.tag{font-size:.7rem;color:var(--accent2);background:#1a3939;border:1px solid #275252;padding:4px 8px;border-radius:999px}.small-btn{font-size:.75rem;background:transparent;color:var(--accent);border:0;cursor:pointer;padding:4px}.empty{padding:35px;text-align:center;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:50px;padding-top:20px;color:var(--muted);font-size:.85rem}.modal-backdrop{position:fixed;inset:0;background:#0009;display:none;place-items:center;padding:18px;z-index:30}.modal-backdrop.open{display:grid}.modal{width:min(650px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}.modal h2{margin:0 0 8px}.modal p{color:var(--muted)}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.note{background:#172640;border-left:3px solid var(--accent2);padding:12px 14px;border-radius:8px;color:#dce8fb;font-size:.9rem}
+@media(max-width:1150px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:210px minmax(0,1fr)}.controls{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.wrap{padding:18px 14px 50px}.hero{grid-template-columns:1fr}.hero-card{display:flex;align-items:center;justify-content:space-between;gap:15px}.hero-card strong{font-size:1.7rem}.controls{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.sidebar nav{display:flex;gap:6px;overflow:auto}.nav-item{white-space:nowrap;width:auto;flex:0 0 auto}.sidebar h2{margin-bottom:8px}.cards{grid-template-columns:1fr}.card{min-height:0}.toolbar{position:static}.cat-head h2{font-size:1.2rem}}
+@media print{body{background:white;color:#111}.toolbar,.sidebar,.chips,.btn,.small-btn,.modal-backdrop{display:none!important}.wrap{max-width:none;padding:0}.hero p,.card p,.cat-head span,footer{color:#333}.layout{display:block}.cards{grid-template-columns:repeat(2,1fr)}.card,.hero-card{background:white;border:1px solid #bbb;box-shadow:none;break-inside:avoid}.category{break-inside:avoid}.card h3{color:#111}}
+</style>
+</head>
+<body id="bodyRoot">
+<div class="wrap">
+<header class="hero">
+ <div>
+  <div class="eyebrow" id="uiEyebrow">Product ideation workspace / مساحة عمل ابتكار المنتجات</div>
+  <h1 id="uiTitle">Software Ideas Catalogue<br><span style="color:var(--accent)">كتالوج أفكار البرمجيات</span></h1>
+  <p id="uiDesc">A searchable, bilingual catalogue of software system concepts. Switch languages instantly to compare ideas, discuss scope with teams, and choose your next project.</p>
+ </div>
+ <div class="hero-card"><div><strong id="totalCount">190</strong><span id="uiCardsText">system ideas across / فكرة نظام</span></div><div><strong id="categoryCount">13</strong><span id="uiCatText">solution categories / فئة رئيسية</span></div></div>
+</header>
+<section class="toolbar" aria-label="Search and filters">
+ <div class="controls">
+  <input id="search" class="field" type="search" placeholder="Search / ابحث في أسماء الأنظمة أو الوصف…" aria-label="Search system ideas">
+  <select id="categorySelect" class="field" aria-label="Filter by category"><option value="" id="uiAllCats">All categories / جميع الفئات</option></select>
+  <select id="langSelect" class="field" aria-label="Language">
+   <option value="en">English (En)</option>
+   <option value="ar">العربية (Ar)</option>
+   <option value="bilingual" selected>Bilingual / ثنائي اللغة</option>
+  </select>
+  <button class="btn" id="clearBtn">Reset / إعادة</button>
+ </div>
+ <div class="meta-row"><span id="resultsText">Showing all ideas</span><button class="btn primary" id="printBtn">Print / PDF / طباعة</button></div>
+</section>
+<div class="chips" id="chips" aria-label="Quick category filters"></div>
+<div class="layout">
+ <aside class="sidebar"><h2 id="uiSidebarHead">Categories / الفئات</h2><nav id="categoryNav"></nav></aside>
+ <main id="catalogue" aria-live="polite"></main>
+</div>
+<footer>
+ <strong id="uiFooterTitle">How to use this catalogue / كيفية استخدام هذا الكتالوج</strong>
+ <p id="uiFooterText1">These entries are concept summaries, not final specifications. Before development, define target users, core workflows, permissions, data model, integrations, security, and MVP scope.</p>
+ <p id="uiFooterText2">For sensitive domains (healthcare, banking, government, etc.), specialist security and regulatory review are required. Prototypes must be distinguished from production systems.</p>
+</footer>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <section class="modal">
+  <h2 id="modalTitle"></h2><p id="modalCategory"></p><p id="modalDescription"></p>
+  <div class="note"><strong id="uiModalNoteTitle">Suggested next step:</strong> <span id="uiModalNoteText">define the primary user, key workflow, data model, and out-of-scope boundaries for the first release.</span></div>
+  <div class="modal-actions"><button class="btn primary" id="copyIdea">Copy summary / نسخ الملخص</button><button class="btn" id="closeModal">Close / إغلاق</button></div>
+ </section>
+</div>
+<script>
+const catalogueData = [
+{
+  "category": {"en": "Retail & Commerce", "ar": "التجزئة والتجارة"},
+  "items": [
+    {"name": {"en": "Supermarket System", "ar": "نظام السوبرماركت"}, "description": {"en": "Manage products, barcode checkout, promotions, stock levels, suppliers, cashiers, and daily sales.", "ar": "إدارة المنتجات، الدفع بالبارسود، العروض الترويجية، مستويات المخزون، الموردين، الصرافين، والمبيعات اليومية."}},
+    {"name": {"en": "Pharmacy System", "ar": "نظام الصيدلية"}, "description": {"en": "Manage medicine catalogues, prescriptions where legally permitted, batches, expiry dates, stock, and pharmacy sales.", "ar": "إدارة كتالوجات الأدوية، الوصفات الطبية حيثما مسموح به قانوناً، الدفعات، تواريخ الصلاحية، المخزون، ومبيعات الصيدلية."}},
+    {"name": {"en": "Restaurant POS", "ar": "نظام نقاط البيع للمطاعم"}, "description": {"en": "Handle dine-in, takeaway, table orders, menu modifiers, kitchen tickets, payments, and sales reports.", "ar": "التعامل مع الطلبات المحلية، الخارجية، طلبات الطاولات، تعديلات القائمة، تذاكر المطبخ، المدفوعات، وتقارير المبيعات."}},
+    {"name": {"en": "Cafe Billing System", "ar": "نظام فواتير المقاهي"}, "description": {"en": "Speed up café orders for drinks and snacks, customizations, table service, bills, and shift closing.", "ar": "تسريع طلبات المشروبات والوجبات الخفيفة في المقاهي، التعديلات المخصصة، خدمة الطاولات، الفواتير، وإغلاق الوردية."}},
+    {"name": {"en": "Bookstore System", "ar": "نظام مكتبة الكتب"}, "description": {"en": "Track books by ISBN, author, publisher, editions, stock, sales, and customer orders.", "ar": "تتبع الكتب بواسطة ردمك (ISBN)، المؤلف، الناشر، الطبعات، المخزون، المبيعات، وطلبات العملاء."}},
+    {"name": {"en": "Inventory System", "ar": "نظام إدارة المخزون"}, "description": {"en": "Track stock quantities, stock movements, reorder thresholds, adjustments, and inventory valuation.", "ar": "تتبع كميات المخزون، حركات المخزون، حدود إعادة الطلب، التسويات، وتقييم المخزون."}},
+    {"name": {"en": "Warehouse System", "ar": "نظام المستودعات"}, "description": {"en": "Manage warehouse locations, receiving, put-away, picking, packing, dispatch, and stock transfers.", "ar": "إدارة مواقع المستودعات، الاستلام، التخزين، الانتقاء، التعبئة، الشحنات، وتحويلات المخزون."}},
+    {"name": {"en": "Wholesale System", "ar": "نظام تجارة الجملة"}, "description": {"en": "Support bulk pricing, customer-specific price lists, purchase orders, invoices, and large-volume stock movements.", "ar": "دعم التسعير بالجملة، قوائم الأسعار الخاصة بالعملاء، أوامر الشراء، الفواتير، وحركات المخزون واسعة النطاق."}},
+    {"name": {"en": "Retail Chain System", "ar": "نظام سلاسل التجزئة"}, "description": {"en": "Coordinate multiple branches, centralized products and pricing, branch inventory, transfers, and consolidated reporting.", "ar": "تنسيق الفروع المتعددة، المنتجات والأسعار المركزية، مخزون الفروع، التحويلات، والتقارير الموحدة."}},
+    {"name": {"en": "Grocery Store System", "ar": "نظام متجر البقالة"}, "description": {"en": "Manage grocery products, weighing, expiry-sensitive stock, checkout, suppliers, and replenishment.", "ar": "إدارة منتجات البقالة، الوزن، المخزون الحساس للصلاحية، الدفع، الموردين، وإعادة التجهيز."}},
+    {"name": {"en": "Bakery System", "ar": "نظام المخابز"}, "description": {"en": "Track baked goods, production batches, ingredients, daily availability, waste, orders, and point-of-sale transactions.", "ar": "تتبع المخبوزات، دفعات الإنتاج، المكونات، التوافر اليومي، الهدر، الطلبات، ومعاملات نقاط البيع."}},
+    {"name": {"en": "Liquor Store System", "ar": "نظام متجر المشروبات"}, "description": {"en": "Manage beverage inventory, age-restricted sales controls, product categories, suppliers, and compliance reporting where required.", "ar": "إدارة مخزون المشروبات، ضوابط المبيعات المقيدة بالسن، فئات المنتجات، الموردين، وتقارير الامتثال عند الاقتضاء."}},
+    {"name": {"en": "Mobile Shop System", "ar": "نظام متجر الهواتف"}, "description": {"en": "Track phones, IMEI/serial numbers, accessories, warranties, repairs, and device sales.", "ar": "تتبع الهواتف، أرقام IMEI/السريل، الإكسسوارات، الضمانات، الإصلاحات، ومبيعات الأجهزة."}},
+    {"name": {"en": "Electronics Store System", "ar": "نظام متجر الإلكترونيات"}, "description": {"en": "Manage electronic products, serial numbers, warranties, accessories, stock, and after-sales service.", "ar": "إدارة المنتجات الإلكترونية، الأرقام التسلسلية، الضمانات، الإكسسوارات، المخزون، وخدمة ما بعد البيع."}},
+    {"name": {"en": "Clothing Store System", "ar": "نظام متجر الملابس"}, "description": {"en": "Manage apparel by size, color, style, seasonal collections, exchanges, and inventory.", "ar": "إدارة الملابس حسب المقاس، اللون، الطراز، المجموعات الموسمية، التبديلات، والمخزون."}},
+    {"name": {"en": "Shoe Store System", "ar": "نظام متجر الأحذية"}, "description": {"en": "Track footwear by size, color, model, stock availability, and sales or exchanges.", "ar": "تتبع الأحذية حسب المقاس، اللون، الموديل، توفر المخزون، والمبيعات أو التبديلات."}},
+    {"name": {"en": "Jewelry Shop System", "ar": "نظام محل المجوهرات"}, "description": {"en": "Manage jewelry items, weights, purity, stones, valuation, certificates, and secure stock records.", "ar": "إدارة قطع المجوهرات، الأوزان، النقاء، الأحجار، التقييم، الشهادات، وسجلات المخزون الآمنة."}},
+    {"name": {"en": "Furniture Store System", "ar": "نظام متجر الأثاث"}, "description": {"en": "Manage furniture catalogues, dimensions, variants, delivery scheduling, orders, and deposits.", "ar": "إدارة كتالوجات الأثاث، الأبعاد، البدائل، جدولة التوصيل، الطلبات، والودائع."}},
+    {"name": {"en": "Stationery Shop System", "ar": "نظام متجر القرطاسية"}, "description": {"en": "Manage school and office supplies, bulk items, stock, suppliers, and fast checkout.", "ar": "إدارة اللوازم المدرسية والمكتبية، المنتجات بالجملة، المخزون، الموردين، والدفع السريع."}},
+    {"name": {"en": "Pet Shop System", "ar": "نظام محلات الحيوانات الأليفة"}, "description": {"en": "Manage pet products, food, accessories, stock, supplier orders, and optional grooming or service bookings.", "ar": "إدارة منتجات الحيوانات، الأطعمة، الإكسسوارات، المخزون، طلبات الموردين، والحجوزات الاختيارية للرعاية أو التجميل."}}
+  ]
+},
+{
+  "category": {"en": "Healthcare", "ar": "الرعاية الصحية"},
+  "items": [
+    {"name": {"en": "Hospital System", "ar": "نظام المستشفيات"}, "description": {"en": "Coordinate patient registration, departments, appointments, admissions, clinical records, billing, and discharge workflows.", "ar": "تنسيق تسجيل المرضى، الأقسام، المواعيد، الإدخالات، السجلات السريرية، الفواتير، وعمليات الخروج."}},
+    {"name": {"en": "Clinic System", "ar": "نظام العيادات"}, "description": {"en": "Manage patient profiles, appointments, consultations, prescriptions, invoices, and follow-up visits.", "ar": "إدارة ملفات المرضى، المواعيد، الاستشارات، الوصفات الطبية، الفواتير، ومراجعات المتابعة."}},
+    {"name": {"en": "Pharmacy Store System", "ar": "نظام متجر الصيدليات"}, "description": {"en": "Handle pharmacy inventory, batch and expiry tracking, sales, suppliers, and medicine-related records subject to local rules.", "ar": "معالجة مخزون الصيدلية، تتبع الدفعات والصلاحية، المبيعات، الموردين، والسجلات المتعلقة بالأدوية وفقاً للقواعد المحلية."}},
+    {"name": {"en": "Lab Management System", "ar": "نظام إدارة المختبرات"}, "description": {"en": "Manage test requests, specimen tracking, results, quality checks, and report delivery.", "ar": "إدارة طلبات الفحوصات، تتبع العينات، النتائج، فحوصات الجودة، وتسليم التقارير."}},
+    {"name": {"en": "Blood Bank System", "ar": "نظام بنك الدم"}, "description": {"en": "Track donors, blood donations, blood groups, component inventory, screening, compatibility, and issue records.", "ar": "تتبع المتبرعين، التبرعات بالدم، فصائل الدم، مخزون المكونات، الفحص، التوافق، وسجلات الإصدار."}},
+    {"name": {"en": "Dental Clinic System", "ar": "نظام عيادة الأسنان"}, "description": {"en": "Manage dental appointments, treatment plans, procedures, patient records, billing, and recall reminders.", "ar": "إدارة مواعيد الأسنان، خطط العلاج، الإجراءات، سجلات المرضى، الفواتير، وتذكيرات المتابعة."}},
+    {"name": {"en": "Eye Clinic System", "ar": "نظام عيادة العيون"}, "description": {"en": "Manage eye examinations, prescriptions, diagnostic results, optical products, and follow-up appointments.", "ar": "إدارة فحوصات العيون، الوصفات الطبية، النتائج التشخيصية، منتجات البصريات، ومواعيد المتابعة."}},
+    {"name": {"en": "Veterinary Clinic System", "ar": "نظام العيادة البيطرية"}, "description": {"en": "Manage animal and owner records, consultations, vaccinations, treatments, appointments, and billing.", "ar": "إدارة سجلات الحيوانات والمالكين، الاستشارات، التطعيمات، العلاجات، المواعيد، والفواتير."}},
+    {"name": {"en": "Diagnostic Center System", "ar": "نظام مركز التشخيص"}, "description": {"en": "Coordinate imaging and diagnostic bookings, referrals, reports, equipment schedules, and billing.", "ar": "تنسيق حجوزات التصوير والتشخيص، الإحالات، التقارير، جداول المعدات، والفواتير."}},
+    {"name": {"en": "Ambulance Dispatch System", "ar": "نظام إرسال الإسعاف"}, "description": {"en": "Track emergency calls, ambulance availability, dispatch decisions, crew assignments, and response status.", "ar": "تتبع مكالمات الطوارئ، توفر سيارات الإسعاف، قرارات الإرسال، تعيين طاقم العمل، وحالة الاستجابة."}},
+    {"name": {"en": "Physiotherapy Center System", "ar": "نظام مركز العلاج الطبيعي"}, "description": {"en": "Manage treatment plans, session scheduling, therapist calendars, progress notes, and packages.", "ar": "إدارة خطط العلاج، جدولة الجلسات، تقويم المعالجين، ملاحظات التقدم، والباقات."}},
+    {"name": {"en": "Mental Health Clinic System", "ar": "نظام عيادة الصحة النفسية"}, "description": {"en": "Support appointment management, confidential records, care plans, and billing with strict access controls.", "ar": "دعم إدارة المواعيد، السجلات السرية، خطط الرعاية، والفواتير مع ضوابط صلاحيات صارمة."}}
+  ]
+},
+{
+  "category": {"en": "Education", "ar": "التعليم"},
+  "items": [
+    {"name": {"en": "School System", "ar": "نظام المدارس"}, "description": {"en": "Manage student admissions, classes, timetables, attendance, grades, fees, and parent communication.", "ar": "إدارة قبول الطلاب، الفصول، الجداول الزمنية، الحضور، الدرجات، الرسوم، والتواصل مع أولياء الأمور."}},
+    {"name": {"en": "College System", "ar": "نظام الكليات"}, "description": {"en": "Organize departments, academic years, courses, registration, assessments, fees, and student records.", "ar": "تنظيم الأقسام، السنوات الدراسية، المراتب، التسجيل، التقييمات، الرسوم، وسجلات الطلاب."}},
+    {"name": {"en": "University System", "ar": "نظام الجامعات"}, "description": {"en": "Coordinate faculties, programs, enrollment, course registration, exams, transcripts, and academic administration.", "ar": "تنسيق الكليات، البرامج، القيد، تسجيل المقررات، الامتحانات، السجلات الأكاديمية، والإدارة الأكاديمية."}},
+    {"name": {"en": "Library System", "ar": "نظام المكتبات"}, "description": {"en": "Manage books and media, member accounts, lending, returns, reservations, fines, and catalogue search.", "ar": "إدارة الكتب والوسائط، حسابات الأعضاء، الإعارة، الإرجاع، الحجوزات، الغرامات، والبحث في الكتالوج."}},
+    {"name": {"en": "Hostel System", "ar": "نظام السكن الجامعي"}, "description": {"en": "Manage room allocation, occupancy, student residents, payments, maintenance, and check-in/out.", "ar": "إدارة تخصيص الغرف، الإشغال، الطلاب المقيمين، المدفوعات، الصيانة، وتسجيل الدخول والخروج."}},
+    {"name": {"en": "Exam System", "ar": "نظام الامتحانات"}, "description": {"en": "Plan examinations, schedules, seating, candidate lists, question papers, and exam administration.", "ar": "تخطيط الامتحانات، الجداول، الجلوس، قوائم المرشحين، أوراق الأسئلة، وإدارة الامتحانات."}},
+    {"name": {"en": "Attendance System", "ar": "نظام الحضور والغياب"}, "description": {"en": "Record attendance, late arrivals, absences, approvals, and attendance summaries.", "ar": "تسجيل الحضور، التأخير، الغياب، الموافقات، وملخصات الحضور."}},
+    {"name": {"en": "Fee Management System", "ar": "نظام إدارة الرسوم"}, "description": {"en": "Track fee structures, invoices, payments, balances, scholarships, and overdue reminders.", "ar": "تتبع هياكل الرسوم، الفواتير، المدفوعات، الأرصدة، المنح الدراسية، والتذكيرات بالمتأخرات."}},
+    {"name": {"en": "Student Portal System", "ar": "نظام بوابة الطلاب"}, "description": {"en": "Give students secure access to courses, schedules, results, resources, announcements, and requests.", "ar": "منح الطلاب وصولاً آمناً إلى المقررات، الجداول، النتائج، الموارد، الإعلانات، والطلبات."}},
+    {"name": {"en": "Coaching Center System", "ar": "نظام مراكز التقوية/الدعم"}, "description": {"en": "Manage batches, tutors, class schedules, student enrollment, attendance, and fee collection.", "ar": "إدارة المجموعات، المعلمين، جداول الحصص، تسجيل الطلاب، الحضور، وتحصيل الرسوم."}},
+    {"name": {"en": "Online Quiz System", "ar": "نظام الاختبارات عبر الإنترنت"}, "description": {"en": "Create timed quizzes, question banks, scoring rules, attempts, and result analytics.", "ar": "إنشاء اختبارات محددة بزمن، بنوك الأسئلة، قواعد التقييم، المحاولات، وتحليلات النتائج."}},
+    {"name": {"en": "Result Management System", "ar": "نظام إدارة النتائج"}, "description": {"en": "Record marks, calculate grades, publish results, and generate transcripts or performance reports.", "ar": "تسجيل الدرجات، حساب التقديرات، نشر النتائج، وإصدار السجلات الأكاديمية أو تقارير الأداء."}}
+  ]
+},
+{
+  "category": {"en": "Finance & Banking", "ar": "المالية والمصرفية"},
+  "items": [
+    {"name": {"en": "Bank System", "ar": "النظام المصرفي"}, "description": {"en": "Model customer accounts, deposits, withdrawals, transfers, statements, and controlled banking workflows.", "ar": "نمذجة حسابات العملاء، الإيداعات، السحب، التحويلات، كشف الحساب، وعمليات البنوك المنضبطة."}},
+    {"name": {"en": "ATM Simulator", "ar": "محاكي الصراف الآلي (ATM)"}, "description": {"en": "Demonstrate ATM sessions, PIN validation, balance inquiries, withdrawals, and transaction receipts using simulated accounts.", "ar": "توضيح جلسات الصراف الآلي، التحقق من رقم التعريف الشخصي (PIN)، الاستعلام عن الرصيد، السحب، وإيصالات المعاملات باستخدام حسابات محاكاة."}},
+    {"name": {"en": "Loan Management System", "ar": "نظام إدارة القروض"}, "description": {"en": "Manage applications, eligibility checks, repayment schedules, interest, installments, and delinquency tracking.", "ar": "إدارة الطلبات، فحوصات الأهلية، جداول السداد، الفوائد، الأقساط، وتتبع التعثر."}},
+    {"name": {"en": "Insurance System", "ar": "نظام التأمين"}, "description": {"en": "Manage policyholders, policies, premiums, renewals, claims, and claim status.", "ar": "إدارة حملة الوثائق، السياسات، الأقساط، التجديدات، المطالبات، وحالة المطالبة."}},
+    {"name": {"en": "Microfinance System", "ar": "نظام التمويل الأصغر"}, "description": {"en": "Track small loans, group lending, repayment collections, field officers, and borrower histories.", "ar": "تتبع القروض الصغيرة، الإقراض الجماعي، تحصيلات السداد، مسؤولي الميدان، وتاريخ المقترضين."}},
+    {"name": {"en": "Stock Trading Simulator", "ar": "محاكي تداول الأسهم"}, "description": {"en": "Simulate portfolios, market orders, price feeds, holdings, and profit/loss without real-money execution.", "ar": "محاكاة المحافظ، أوامر السوق، تغذيات الأسعار، الحصوزات، والربح/الخسارة بدون تنفيذ بأموال حقيقية."}},
+    {"name": {"en": "Expense Tracker", "ar": "متعقب المصروفات"}, "description": {"en": "Record expenses, categorize transactions, set budgets, and review spending trends.", "ar": "تسجيل النفقات، تصنيف المعاملات، وضع الميزانيات، ومراجعة اتجاهات الإنفاق."}},
+    {"name": {"en": "Budget Manager", "ar": "مدير الميزانية"}, "description": {"en": "Plan income and spending limits, compare actuals with budgets, and track financial goals.", "ar": "تخطيط الدخل وقيود الإنفاق، مقارنة الفعلي بالميزانية، وتتبع الأهداف المالية."}},
+    {"name": {"en": "Tax Filing System", "ar": "نظام الإقرارات الضريبية"}, "description": {"en": "Collect tax-relevant information, calculate supported tax forms, validate entries, and track filing status.", "ar": "جمع المعلومات ذات الصلة بالضرائب، حساب النماذج الضريبية المدعومة، التحقق من الإدخالات، وتتبع حالة التقديم."}},
+    {"name": {"en": "Payroll System", "ar": "نظام الرواتب والأجور"}, "description": {"en": "Calculate wages, overtime, deductions, allowances, payslips, and payroll reports under configured rules.", "ar": "حساب الأجور، العمل الإضافي، الخصومات، البدلات، قسائم الرواتب، وتقارير الرواتب وفقاً للقواعد المُعدة."}},
+    {"name": {"en": "Accounting System", "ar": "النظام المحاسبي"}, "description": {"en": "Manage chart of accounts, journal entries, ledgers, trial balances, and financial statements.", "ar": "إدارة دليل الحسابات، قيود اليومية، دفاتر الأستاذ، موازين المراجعة، والبيانات المالية."}},
+    {"name": {"en": "Invoice & Billing System", "ar": "نظام الفوترة والتحصيل"}, "description": {"en": "Create quotes and invoices, record payments, track outstanding balances, and issue receipts.", "ar": "إنشاء عروض الأسعار والفواتير، تسجيل المدفوعات، تتبع الأرصدة المستحقة، وإصدار الإيصالات."}}
+  ]
+},
+{
+  "category": {"en": "HR & Office", "ar": "الموارد البشرية والمكاتب"},
+  "items": [
+    {"name": {"en": "Employee Management", "ar": "إدارة الموظفين"}, "description": {"en": "Maintain employee profiles, contracts, departments, job titles, documents, and employment status.", "ar": "صيانة ملفات الموظفين، العقود، الأقسام، المسميات الوظيفية، المستندات، وحالة التوظيف."}},
+    {"name": {"en": "HR Management", "ar": "إدارة الموارد البشرية"}, "description": {"en": "Coordinate recruitment, onboarding, performance reviews, policies, benefits, and employee lifecycle processes.", "ar": "تنسيق التوظيف، التهيئة (Onboarding)، مراجعات الأداء، السياسات، المزايا، وعمليات دورة حياة الموظف."}},
+    {"name": {"en": "Attendance & Leave System", "ar": "نظام الحضور والإجازات"}, "description": {"en": "Record working hours, shifts, leave requests, approvals, and attendance summaries.", "ar": "تسجيل ساعات العمل، الورديات، طلبات الإجازات، الموافقات، وملخصات الحضور."}},
+    {"name": {"en": "Visitor Management", "ar": "إدارة الزوار"}, "description": {"en": "Register visitors, notify hosts, issue visitor badges, and maintain entry and exit logs.", "ar": "تسجيل الزوار، إشعار المضيفين، إصدار بطاقات تعريف للزوار، والاحتفاظ بسجلات الدخول والخروج."}},
+    {"name": {"en": "Meeting Room Booking", "ar": "حجز غرف الاجتماعات"}, "description": {"en": "Manage room availability, reservations, equipment, attendees, and schedule conflicts.", "ar": "إدارة توفر الغرف، الحجوزات، المعدات، الحاضرين، وتعارض الجداول."}},
+    {"name": {"en": "Task Manager", "ar": "مدير المهام"}, "description": {"en": "Create tasks, assign owners, set priorities and deadlines, and track completion.", "ar": "إنشاء المهام، تعيين المسؤولين، تحديد الأولويات والمواعيد النهائية، وتتبع الإنجاز."}},
+    {"name": {"en": "Project Tracker", "ar": "متعقب المشاريع"}, "description": {"en": "Organize projects, milestones, issues, team assignments, timelines, and progress reports.", "ar": "تنظيم المشاريع، المراحل الرئيسية، المشكلات، تعيينات الفرق، الجداول الزمنية، وتقارير التقدم."}},
+    {"name": {"en": "Document Management", "ar": "إدارة المستندات"}, "description": {"en": "Store, classify, version, search, approve, and control access to business documents.", "ar": "تخزين، تصنيف، إصدار، بحث، اعتماد، والتحكم في الوصول إلى وثائق العمل."}},
+    {"name": {"en": "File Sharing System", "ar": "نظام مشاركة الملفات"}, "description": {"en": "Share files and folders with permission controls, links, versioning, and access history.", "ar": "مشاركة الملفات والمجلدات مع ضوابط الصلاحيات، الروابط، الإصدارات، وتاريخ الوصول."}},
+    {"name": {"en": "CRM System", "ar": "نظام إدارة علاقات العملاء (CRM)"}, "description": {"en": "Track leads, customers, interactions, opportunities, sales pipelines, and follow-up activities.", "ar": "تتبع العملاء المحتملين، العملاء، التفاعلات، الفرص، خطوط المبيعات، وأنشطة المتابعة."}},
+    {"name": {"en": "Helpdesk / Ticketing System", "ar": "نظام الدعم الفني / التذاكر"}, "description": {"en": "Capture support requests, assign agents, manage priorities and SLAs, and track resolution.", "ar": "التقاط طلبات الدعم، تعيين الوكلاء، إدارة الأولويات ومستويات الخدمة (SLAs)، وتتبع الحلول."}},
+    {"name": {"en": "Asset Management", "ar": "إدارة الأصول"}, "description": {"en": "Track company equipment, ownership, locations, warranties, assignments, and maintenance.", "ar": "تتبع معدات الشركة، الملكية، المواقع، الضمانات، التعيينات، والصيانة."}}
+  ]
+},
+{
+  "category": {"en": "Transport & Logistics", "ar": "النقل واللوجستيات"},
+  "items": [
+    {"name": {"en": "Parking System", "ar": "نظام مواقف السيارات"}, "description": {"en": "Manage parking spaces, entry/exit, tickets, tariffs, occupancy, and payment reconciliation.", "ar": "إدارة مساحات وقوف السيارات، الدخول/الخروج، التذاكر، التعريفات، الإشغال، وتسوية المدفوعات."}},
+    {"name": {"en": "Bus Booking System", "ar": "نظام حجز الحافلات"}, "description": {"en": "Publish routes and schedules, reserve seats, issue tickets, and manage passenger manifests.", "ar": "نشر المسارات والجداول، حجز المقاعد، إصدار التذاكر، وإدارة قوائم الركاب."}},
+    {"name": {"en": "Train Reservation System", "ar": "نظام حجز القطارات"}, "description": {"en": "Manage routes, train schedules, seat availability, reservations, fares, and cancellations.", "ar": "إدارة المسارات، جداول القطارات، توفر المقاعد، الحجوزات، الأسعار، والإلغاءات."}},
+    {"name": {"en": "Airline Reservation System", "ar": "نظام حجز الخطوط الجوية"}, "description": {"en": "Model flights, passenger bookings, seat assignments, ticketing, and itinerary changes.", "ar": "نمذجة الرحلات، حجز الركاب، تعيين المقاعد، إصدار التذاكر، وتعديلات خط سير الرحلة."}},
+    {"name": {"en": "Taxi Booking System", "ar": "نظام حجز سيارات الأجرة"}, "description": {"en": "Match ride requests with drivers, estimate fares, track trip status, and record payments.", "ar": "مطابقة طلبات الرحلات مع السائقين، تقدير الأجرة، تتبع حالة الرحلة، وتسجيل المدفوعات."}},
+    {"name": {"en": "Courier Tracking System", "ar": "نظام تتبع البريد السريع"}, "description": {"en": "Register parcels, scan status events, assign routes, and provide shipment tracking.", "ar": "تسجيل الطرود، مسح أحداث الحالة، تعيين المسارات، وتوفير تتبع الشحنات."}},
+    {"name": {"en": "Fleet Management", "ar": "إدارة الأساطيل"}, "description": {"en": "Track vehicles, drivers, fuel, maintenance, inspections, and utilization.", "ar": "تتبع المركبات، السائقين، الوقود، الصيانة، الفحوصات، ومعدل الاستخدام."}},
+    {"name": {"en": "Delivery Management", "ar": "إدارة عمليات التوصيل"}, "description": {"en": "Plan deliveries, assign drivers, optimize routes, capture proof of delivery, and track exceptions.", "ar": "تخطيط التوصيلات، تعيين السائقين، تحسين المسارات، التقاط إثبات التوصيل، وتتبع الاستثناءات."}},
+    {"name": {"en": "Fuel Station System", "ar": "نظام محطات الوقود"}, "description": {"en": "Manage fuel pumps, tank levels, forecourt sales, shifts, and reconciliation.", "ar": "إدارة مضخات الوقود، مستويات الخزانات، مبيعات ساحة المحطة، الورديات، والتسوية."}},
+    {"name": {"en": "Toll Plaza System", "ar": "نظام بوابات الرسوم (التول)"}, "description": {"en": "Record vehicle passage, classify vehicles, calculate tolls, and reconcile lane transactions.", "ar": "تسجيل مرور المركبات، تصنيف المركبات، حساب الرسوم، وتسوية معاملات الحارات."}},
+    {"name": {"en": "Cargo Management", "ar": "إدارة الشحن وبضائع النقل"}, "description": {"en": "Manage cargo bookings, consignments, manifests, capacity, customs documents, and shipment milestones.", "ar": "إدارة ححوزات الشحنات، الطرود، قوائم الشحن، السعة، وثائق الجمارك، ومراحل الشحن."}},
+    {"name": {"en": "Ride Sharing System", "ar": "نظام مشاركة الرحلات"}, "description": {"en": "Coordinate riders, drivers, matching, trip tracking, fare estimates, and trip payments.", "ar": "تنسيق الركاب، السائقين، المطابقة، تتبع الرحلات، تقديرات الأجرة، ومدفوعات الرحلات."}}
+  ]
+},
+{
+  "category": {"en": "Hospitality", "ar": "الضيافة والفنادق"},
+  "items": [
+    {"name": {"en": "Hotel Management System", "ar": "نظام إدارة الفنادق"}, "description": {"en": "Manage reservations, rooms, check-in/out, housekeeping, guest profiles, and folios.", "ar": "إدارة الحجوزات، الغرف، تسجيل الوصول/الخروج، التدبير المنزلي، ملفات الضيوف، والفواتير."}},
+    {"name": {"en": "Resort Management System", "ar": "نظام إدارة المنتجع"}, "description": {"en": "Coordinate accommodation, activities, amenities, packages, bookings, and guest services.", "ar": "تنسيق الإقامة، الأنشطة، المرافق، الحزم، الحجوزات، وخدمات الضيوف."}},
+    {"name": {"en": "Restaurant Reservation System", "ar": "نظام حجز المطاعم"}, "description": {"en": "Manage table availability, reservations, guest counts, waitlists, and seating status.", "ar": "إدارة توفر الطاولات، الحجوزات، أعداد الضيوف، قوائم الانتظار، وحالة الجلوس."}},
+    {"name": {"en": "Banquet Hall Booking", "ar": "حجز قاعات المناسبات"}, "description": {"en": "Manage venue availability, event packages, deposits, layouts, catering, and contracts.", "ar": "إدارة توفر الأماكن، حزم الفعاليات، الودائع، التصاميم، تقديم الطعام، والعقود."}},
+    {"name": {"en": "Travel Agency System", "ar": "نظام وكالات السفر"}, "description": {"en": "Manage customers, suppliers, itineraries, bookings, quotations, and travel documents.", "ar": "إدارة العملاء، الموردين، خطوط السير، الحجوزات، عروض الأسعار، وثائق السفر."}},
+    {"name": {"en": "Tour Package System", "ar": "نظام الباقات السياحية"}, "description": {"en": "Create tour packages, schedules, capacity, bookings, guides, and customer payments.", "ar": "إنشاء الباقات السياحية، الجداول الزمنية، السعة، الحجوزات، المرشدين، ومدفوعات العملاء."}},
+    {"name": {"en": "Event Management System", "ar": "نظام إدارة الفعاليات"}, "description": {"en": "Plan events, tasks, suppliers, budgets, schedules, registrations, and attendee communications.", "ar": "تخطيط الفعاليات، المهام، الموردين، الميزانيات، الجداول الزمنية، التسجيلات، وتواصل الحاضرين."}},
+    {"name": {"en": "Wedding Planner System", "ar": "نظام تخطيط حفلات الزفاف"}, "description": {"en": "Coordinate wedding checklists, vendors, budgets, timelines, guest lists, and payments.", "ar": "تنسيق قوائم مهام الزفاف، الموردين، الميزانيات، الجداول الزمنية، قوائم الضيوف، والمدفوعات."}}
+  ]
+},
+{
+  "category": {"en": "Government & Public", "ar": "الجهات الحكومية والعامة"},
+  "items": [
+    {"name": {"en": "Voting System", "ar": "نظام التصويت والانتخابات"}, "description": {"en": "Manage voter eligibility, ballot configuration, vote submission, and result aggregation with verifiable security controls.", "ar": "إدارة أهلية الناخبين، تكوين بطاقات الاقتراع، تقديم الأصوات، وتجميع النتائج مع ضوابط أمنية يمكن التحقق منها."}},
+    {"name": {"en": "Passport Office System", "ar": "نظام مكاتب جوازات السفر"}, "description": {"en": "Track applications, identity-document checks, appointments, processing stages, and collection status.", "ar": "تتبع الطلبات، فحوصات وثائق الهوية، المواعيد، مراحل المعالجة، وحالة الاستلام."}},
+    {"name": {"en": "Land Records System", "ar": "نظام السجلات العقارية"}, "description": {"en": "Maintain parcel records, ownership history, documents, transfers, and authorized searches.", "ar": "صيانة سجلات القطع العقارية، تاريخ الملكية، المستندات، عمليات النقل، وعمليات البحث المصرح بها."}},
+    {"name": {"en": "Water Bill System", "ar": "نظام فواتير المياه"}, "description": {"en": "Manage customer accounts, meter readings, tariffs, bills, payments, and arrears.", "ar": "إدارة حسابات العملاء، قراءات العدادات، التعريفات، الفواتير، المدفوعات، والمتأخرات."}},
+    {"name": {"en": "Electricity Bill System", "ar": "نظام فواتير الكهرباء"}, "description": {"en": "Track utility accounts, meter readings, tariffs, invoices, payments, and consumption history.", "ar": "تتبع حسابات المرافق، قراءات العدادات، التعريفات، الفواتير، المدفوعات، وتاريخ الاستهلاك."}},
+    {"name": {"en": "Gas Bill System", "ar": "نظام فواتير الغاز"}, "description": {"en": "Manage customer meters, readings, billing cycles, tariffs, payments, and service records.", "ar": "إدارة عدادات العملاء، القراءات، دورات الفوترة، التعريفات، المدفوعات، وسجلات الخدمة."}},
+    {"name": {"en": "Municipal Complaint System", "ar": "نظام الشكاوى البلدية"}, "description": {"en": "Receive public complaints, categorize issues, assign departments, track resolution, and notify residents.", "ar": "استلام الشكاوى العامة، تصنيف المشكلات، تعيين الأقسام، تتبع الحلول، وإشعار السكان."}},
+    {"name": {"en": "Police Record System", "ar": "نظام السجلات الشرطية"}, "description": {"en": "Manage authorized case records, incident details, evidence references, and audit trails with strict access control.", "ar": "إدارة سجلات القضايا المصرح بها، تفاصيل الحوادث، مراجع الأدلة، ومسارات التدقيق مع صلاحيات وصول صارمة."}},
+    {"name": {"en": "Court Case Management", "ar": "نظام إدارة القضايا القضائية"}, "description": {"en": "Track case filings, parties, hearings, documents, orders, and deadlines.", "ar": "تتبع رفع القضايا، الأطراف، الجلسات، المستندات، الأحكام، والمواعيد النهائية."}},
+    {"name": {"en": "Jail Management System", "ar": "نظام إدارة السجون"}, "description": {"en": "Manage authorized inmate records, housing assignments, visits, schedules, and custody events.", "ar": "إدارة سجلات النزلاء المصرح بها، تعيينات الإسكان، الزيارات، الجداول الزمنية، وأحداث الاحتجاز."}},
+    {"name": {"en": "Public Distribution System", "ar": "نظام التوزيع العام (التموين)"}, "description": {"en": "Manage eligible beneficiaries, allocated goods, distribution records, stock, and reconciliation.", "ar": "إدارة المستفيدين المؤهلين، السلع المخصصة، سجلات التوزيع، المخزون، والتسوية."}},
+    {"name": {"en": "Ration Shop System", "ar": "نظام محلات التموين/الحصص"}, "description": {"en": "Track beneficiary entitlements, ration stock, distribution, receipts, and compliance records.", "ar": "تتبع استحقاقات المستفيدين، مخزون الحصص، التوزيع، الإيصالات، وسجلات الامتثال."}}
+  ]
+},
+{
+  "category": {"en": "Real Estate & Property", "ar": "العقارات والأملاك"},
+  "items": [
+    {"name": {"en": "Real Estate System", "ar": "نظام العقارات"}, "description": {"en": "Manage property listings, owners, buyers, leads, viewings, offers, and transactions.", "ar": "إدارة قوائم العقارات، المالكين، المشترين، العملاء المهتمين، المعاينات، العروض، والمعاملات."}},
+    {"name": {"en": "Property Rental System", "ar": "نظام تأجير العقارات"}, "description": {"en": "Manage rental listings, tenant applications, leases, rent payments, and renewals.", "ar": "إدارة قوائم الإيجار، طلبات المستأجرين، عقود الإيجار، مدفوعات الإيجار، والتجديدات."}},
+    {"name": {"en": "Housing Society System", "ar": "نظام المجمعات السكنية"}, "description": {"en": "Manage residents, units, service requests, notices, shared facilities, and community finances.", "ar": "إدارة المقيمين، الوحدات، طلبات الخدمة، الإشعارات، المرافق المشتركة، وأموال المجتمع."}},
+    {"name": {"en": "Apartment Management", "ar": "إدارة الشقق السكنية"}, "description": {"en": "Track units, occupants, leases, rent, maintenance, and occupancy.", "ar": "تتبع الوحدات، الشاغلين، عقود الإيجار، الإيجار، الصيانة، ومعدل الإشغال."}},
+    {"name": {"en": "Maintenance Billing System", "ar": "نظام فوترة الصيانة"}, "description": {"en": "Generate service charges, allocate costs, record payments, and track outstanding balances.", "ar": "إنشاء رسوم الخدمة، تخصيص التكاليف، تسجيل المدفوعات، وتتبع الأرصدة المستحقة."}},
+    {"name": {"en": "PG / Hostel Booking System", "ar": "نظام حجز السكن المشترك (PG / Hostel)"}, "description": {"en": "Manage beds and rooms, tenant stays, availability, deposits, bills, and check-in/out.", "ar": "إدارة الأسرة والغرف، إقامات المستأجرين، التوفر، الودائع، الفواتير، وتسجيل الوصول/الخروج."}}
+  ]
+},
+{
+  "category": {"en": "Media & Entertainment", "ar": "الإعلام والترفيه"},
+  "items": [
+    {"name": {"en": "Cinema Ticket System", "ar": "نظام تذاكر السينما"}, "description": {"en": "Manage movie schedules, screens, seat maps, ticket sales, and cancellations.", "ar": "إدارة مواعيد الأفلام، الشاشات، خرائط المقاعد، مبيعات التذاكر، والإلغاءات."}},
+    {"name": {"en": "Video Library System", "ar": "نظام مكتبة الفيديو"}, "description": {"en": "Catalogue video content, manage borrowing or streaming access, and track availability.", "ar": "فهرسة محتوى الفيديو، إدارة إمكانية الإعارة أو البث، وتتبع التوفر."}},
+    {"name": {"en": "Music Store System", "ar": "نظام متجر الموسيقى"}, "description": {"en": "Manage music releases, artists, albums, tracks, purchases, and digital catalogue metadata.", "ar": "إدارة الإصدارات الموسيقية، الفنانين، الألبومات، المسارات، المشتريات، وبيانات الكتالوج الرقمي."}},
+    {"name": {"en": "Game Store System", "ar": "نظام متجر الألعاب"}, "description": {"en": "Manage game listings, platform compatibility, inventory or digital licences, and purchases.", "ar": "إدارة قوائم الألعاب، توافق المنصات، المخزون أو التراخيص الرقمية، والمشتريات."}},
+    {"name": {"en": "Photo Studio System", "ar": "نظام استوديو التصوير"}, "description": {"en": "Manage client bookings, photo sessions, packages, editing status, and delivery.", "ar": "إدارة حجوزات العملاء، جلسات التصوير، الباقات، حالة التعديل، والتسليم."}},
+    {"name": {"en": "Event Ticketing System", "ar": "نظام تذاكر الفعاليات"}, "description": {"en": "Publish events, manage ticket types, seat allocation, check-in, and refunds.", "ar": "نشر الفعاليات، إدارة أنواع التذاكر، تخصيص المقاعد، تسجيل الوصول، والاسترجاع."}},
+    {"name": {"en": "Sports Club System", "ar": "نظام الأندية الرياضية"}, "description": {"en": "Manage members, teams, training schedules, facilities, fees, and events.", "ar": "إدارة الأعضاء، الفرق، جداول التدريب، المرافق، الرسوم، والفعاليات."}},
+    {"name": {"en": "Gym Management System", "ar": "نظام إدارة الصالات الرياضية (Gym)"}, "description": {"en": "Manage memberships, plans, check-ins, trainers, classes, and renewals.", "ar": "إدارة العضويات، الخطط، تسجيل الوصول، المدربين، الفصول، والتجديدات."}},
+    {"name": {"en": "Yoga Studio System", "ar": "نظام استوديو اليوغا"}, "description": {"en": "Schedule classes, manage instructors, memberships, attendance, and package balances.", "ar": "جدولة الفصول، إدارة المدربين، العضويات، الحضور، أرصدة الباقات."}},
+    {"name": {"en": "Swimming Pool System", "ar": "نظام حمامات السباحة"}, "description": {"en": "Manage access passes, lessons, lanes, schedules, memberships, and safety-related records.", "ar": "إدارة تصاريح الدخول، الدروس، المسارات، الجداول، العضويات، وسجلات السلامة."}}
+  ]
+},
+{
+  "category": {"en": "Agriculture & Misc", "ar": "الزراعة وأخرى"},
+  "items": [
+    {"name": {"en": "Farm Management System", "ar": "نظام إدارة المزارع"}, "description": {"en": "Track fields, crops, planting, inputs, tasks, harvests, equipment, and farm costs.", "ar": "تتبع الحقول، المحاصيل، الزراعة، المدخلات، المهام، الحصاد، المعدات، وتكاليف المزرعة."}},
+    {"name": {"en": "Dairy Management System", "ar": "نظام إدارة مزارع الألبان"}, "description": {"en": "Manage herds, milk collection, production, feed, veterinary events, and deliveries.", "ar": "إدارة قطعان الماشية، تجميع الحليب، الإنتاج، الأعلاف، الأحداث البيطرية، والتوصيلات."}},
+    {"name": {"en": "Poultry Management System", "ar": "نظام مزارع الدواجن"}, "description": {"en": "Track flocks, feed, mortality, vaccination, egg production, and batch performance.", "ar": "تتبع أسراب الدواجن، الأعلاف، معدلات النفوق، التطعيمات، إنتاج البيض، وأداء الدفعات."}},
+    {"name": {"en": "Cold Storage System", "ar": "نظام التخزين البارد"}, "description": {"en": "Manage storage chambers, lots, temperature records, occupancy, and inbound/outbound goods.", "ar": "إدارة غرف التخزين، الدفعات، سجلات درجات الحرارة، الإشغال، والبضائع الواردة والصادرة."}},
+    {"name": {"en": "Grain Depot System", "ar": "نظام مستودعات الحبوب"}, "description": {"en": "Track grain intake, weighing, quality, storage lots, moisture, dispatch, and stock.", "ar": "تتبع استلام الحبوب، الوزن، الجودة، دفعات التخزين، الرطوبة، الإرسال، والمخزون."}},
+    {"name": {"en": "Nursery / Plant Shop System", "ar": "نظام المشتل / متجر النباتات"}, "description": {"en": "Manage plant varieties, growing batches, care schedules, stock, and sales.", "ar": "إدارة أصناف النباتات، دفعات النمو، جداول الرعاية، المخزون، والمبيعات."}},
+    {"name": {"en": "Fish Market System", "ar": "نظام سوق الأسماك"}, "description": {"en": "Track catch or supplier lots, weight-based sales, freshness, cold storage, and stock.", "ar": "تتبع المصيد أو دفعات الموردين، المبيعات القائمة على الوزن، النضارة، التخزين البارد، والمخزون."}},
+    {"name": {"en": "Meat Shop System", "ar": "نظام محل اللحوم"}, "description": {"en": "Manage meat cuts, weight-based pricing, batch traceability, stock, and sales.", "ar": "إدارة قطع اللحوم، التسعير القائم على الوزن، تتبع الدفعات، المخزون، والمبيعات."}},
+    {"name": {"en": "Water Delivery System", "ar": "نظام توصيل المياه"}, "description": {"en": "Manage customer subscriptions, bottle deposits, delivery routes, and payment records.", "ar": "إدارة اشتراكات العملاء، حاويات الزجاجات، مسارات التوصيل، وسجلات المدفوعات."}},
+    {"name": {"en": "Laundry Management System", "ar": "نظام إدارة المغاسل"}, "description": {"en": "Track customer orders, garments, service types, status, pricing, and delivery.", "ar": "تتبع طلبات العملاء، الملابس، أنواع الخدمات، الحالة، التسعير، والتوصيل."}},
+    {"name": {"en": "Salon Management System", "ar": "نظام إدارة صالونات التجميل"}, "description": {"en": "Manage appointments, staff, services, products, customer profiles, and checkout.", "ar": "إدارة المواعيد، طاقم العمل، الخدمات، المنتجات، ملفات العملاء، والدفع."}},
+    {"name": {"en": "Spa Booking System", "ar": "نظام حجز السبا (Spa)"}, "description": {"en": "Schedule treatments, rooms, therapists, packages, and customer bookings.", "ar": "جدولة العلاجات، الغرف، المعالجين، الباقات، وحجوزات العملاء."}},
+    {"name": {"en": "Repair Shop System", "ar": "نظام ورش الإصلاح"}, "description": {"en": "Track repair jobs, diagnostics, parts, estimates, warranties, and job status.", "ar": "تتبع وظائف الإصلاح، التشخيص، القطع، التقديرات، الضمانات، وحالة الوظيفة."}},
+    {"name": {"en": "Car Service Center System", "ar": "نظام مركز خدمة السيارات"}, "description": {"en": "Manage vehicle service history, work orders, parts, technicians, estimates, and invoices.", "ar": "إدارة تاريخ خدمة المركبات، أوامر العمل، القطع، الفنيين، التقديرات، والفواتير."}},
+    {"name": {"en": "Bike Showroom System", "ar": "نظام صالات عرض الدراجات النارية"}, "description": {"en": "Manage motorcycle inventory, chassis/engine identifiers, accessories, sales, and service records.", "ar": "إدارة مخزون الدراجات، أرقام الشاصي/المحرك، الإكسسوارات، المبيعات، وسجلات الخدمة."}},
+    {"name": {"en": "Car Showroom System", "ar": "نظام صالات عرض السيارات"}, "description": {"en": "Track vehicle stock, VINs, test drives, leads, quotations, and sales.", "ar": "تتبع مخزون المركبات، أرقام الهيكل (VIN)، اختبارات القيادة، العملاء المهتمين، عروض الأسعار، والمبيعات."}},
+    {"name": {"en": "Toll Tax System", "ar": "نظام رسوم الطرق (التول)"}, "description": {"en": "Calculate and record toll charges, vehicle categories, exemptions, and transaction reconciliation.", "ar": "حساب وتخزين رسوم الطرق، فئات المركبات، الإعفاءات، وتسوية المعاملات."}},
+    {"name": {"en": "Cyber Cafe System", "ar": "نظام مقاهي الإنترنت (Cyber Cafe)"}, "description": {"en": "Manage computer sessions, hourly rates, customer accounts, printing, and payments.", "ar": "إدارة جلسات الكمبيوتر، الأسعار بالساعة، حسابات العملاء، الطباعة، والمدفوعات."}},
+    {"name": {"en": "Internet Cafe Billing", "ar": "نظام فوترة مقاهي الإنترنت"}, "description": {"en": "Track workstation usage, timed sessions, tariffs, prepaid balances, and session billing.", "ar": "تتبع استخدام محطات العمل، الجلسات المحددة بزمن، التعريفات، الأرصدة المدفوعة مقدماً، وفواتير الجلسات."}},
+    {"name": {"en": "Gaming Zone System", "ar": "نظام مناطق الألعاب (Gaming Zone)"}, "description": {"en": "Manage gaming stations, session timers, bookings, packages, and payments.", "ar": "إدارة محطات الألعاب، مؤقتات الجلسات، الحجوزات، الباقات، والمدفوعات."}}
+  ]
+},
+{
+  "category": {"en": "Food & Delivery", "ar": "الطعام والتوصيل"},
+  "items": [
+    {"name": {"en": "Food Delivery System", "ar": "نظام توصيل الطعام"}, "description": {"en": "Manage restaurant listings, menus, customer orders, delivery assignments, payments, and order tracking.", "ar": "إدارة قوائم المطاعم، القوائم، طلبات العملاء، تعيينات التوصيل، المدفوعات، وتتبع الطلبات."}},
+    {"name": {"en": "Cloud Kitchen System", "ar": "نظام المطابخ السحابية (Cloud Kitchen)"}, "description": {"en": "Coordinate delivery-only brands, incoming orders, kitchen preparation, packaging, and dispatch.", "ar": "تنسيق العلامات التجارية الخاصة بالتوصيل فقط، الطلبات الواردة، تحضير المطبخ، التعبئة، والإرسال."}},
+    {"name": {"en": "Tiffin Service System", "ar": "نظام خدمات الوجبات (Tiffin Service)"}, "description": {"en": "Manage meal plans, subscriptions, menus, delivery schedules, and customer preferences.", "ar": "إدارة خطط الوجبات، الاشتراكات، القوائم، جداول التوصيل، تفضيلات العملاء."}},
+    {"name": {"en": "Catering Management", "ar": "إدارة خدمات تقديم الطعام (Catering)"}, "description": {"en": "Manage event menus, guest counts, quotations, ingredients, staff, delivery, and billing.", "ar": "إدارة قوائم الفعاليات، أعداد الضيوف، عروض الأسعار، المكونات، الموظفين، التوصيل، والفواتير."}},
+    {"name": {"en": "Water Can Delivery", "ar": "توصيل قوارير المياه"}, "description": {"en": "Manage reusable water containers, customer orders, delivery routes, deposits, and returns.", "ar": "إدارة حاويات المياه القابلة لإعادة الاستخدام، طلبات العملاء، مسارات التوصيل، الودائع، والمرتجعات."}},
+    {"name": {"en": "Milk Delivery System", "ar": "نظام توصيل الحليب"}, "description": {"en": "Manage recurring subscriptions, daily quantities, delivery routes, pauses, and payments.", "ar": "إدارة الاشتراكات المتكررة، الكميات اليومية، مسارات التوصيل، الإيقاف، والمدفوعات."}},
+    {"name": {"en": "Grocery Delivery System", "ar": "نظام توصيل البقالة"}, "description": {"en": "Support online grocery catalogues, cart checkout, picking, substitutions, delivery, and order status.", "ar": "دعم كتالوجات البقالة عبر الإنترنت، الدفع، الانتقاء، البدائل، التوصيل، وحالة الطلب."}},
+    {"name": {"en": "Online Order System", "ar": "نظام الطلبات عبر الإنترنت"}, "description": {"en": "Accept online orders, validate availability, process payments, and track fulfillment.", "ar": "قبول الطلبات عبر الإنترنت، التحقق من التوفر، معالجة المدفوعات، وتتبع التنفيذ."}}
+  ]
+},
+{
+  "category": {"en": "Utility & Admin", "ar": "الخدمات المساعدة والإدارة"},
+  "items": [
+    {"name": {"en": "Complaint Management", "ar": "إدارة الشكاوى"}, "description": {"en": "Register complaints, assign responsible teams, set priorities, and track resolution and feedback.", "ar": "تسجيل الشكاوى، تعيين الفرق المسؤولة، تحديد الأولويات، وتتبع الحلول والملاحظات."}},
+    {"name": {"en": "Feedback System", "ar": "نظام الملاحظات والآراء (Feedback)"}, "description": {"en": "Collect customer or employee feedback, categorize responses, and analyze trends.", "ar": "جمع ملاحظات العملاء أو الموظفين، تصنيف الردود، وتحليل الاتجاهات."}},
+    {"name": {"en": "Survey System", "ar": "نظام الاستطلاعات"}, "description": {"en": "Create surveys, distribute them, validate responses, and summarize results.", "ar": "إنشاء الاستطلاعات، توزيعها، التحقق من الردود، وتلخيص النتائج."}},
+    {"name": {"en": "Polling System", "ar": "نظام التصويت الاستطلاعي (Polling)"}, "description": {"en": "Create polls, control participation, collect responses, and display permitted results.", "ar": "إنشاء استطلاعات الرأي، التحكم في المشاركة، جمع الردود، وعرض النتائج المسموح بها."}},
+    {"name": {"en": "Appointment Booking", "ar": "حجز المواعيد"}, "description": {"en": "Publish availability, book time slots, send reminders, and handle rescheduling or cancellation.", "ar": "نشر التوفر، حجز الفترات الزمنية، إرسال التذكيرات، ومعالجة إعادة الجدولة أو الإلغاء."}},
+    {"name": {"en": "Queue Management", "ar": "إدارة صفوف الانتظار (Queue Management)"}, "description": {"en": "Manage waiting lists, service counters, estimated waits, and queue progression.", "ar": "إدارة قوائم الانتظار، نوافذ الخدمة، أوقات الانتظار المقدرة، وتقدم الصفوف."}},
+    {"name": {"en": "Token System", "ar": "نظام الرموز والأرقام (Token System)"}, "description": {"en": "Issue numbered tokens, call the next customer, and show current service status.", "ar": "إصدار رموز مرقمة، استدعاء العميل التالي، وعرض حالة الخدمة الحالية."}},
+    {"name": {"en": "Reception Management", "ar": "إدارة الاستقبال"}, "description": {"en": "Coordinate visitors, appointments, host notifications, and front-desk activities.", "ar": "تنسيق الزوار، المواعيد، إشعارات المضيفين، وأنشطة مكتب الاستقبال."}},
+    {"name": {"en": "Subscription Management", "ar": "إدارة الاشتراكات"}, "description": {"en": "Manage plans, billing periods, renewals, cancellations, and subscription status.", "ar": "إدارة الخطط، فترات الفوترة، التجديدات، الإلغاءات، وحالة الاشتراك."}},
+    {"name": {"en": "Membership Management", "ar": "إدارة العضويات"}, "description": {"en": "Track members, membership tiers, renewals, benefits, and access eligibility.", "ar": "تتبع الأعضاء، مستويات العضوية، التجديدات، المزايا، وأهلية الوصول."}},
+    {"name": {"en": "Loyalty Program System", "ar": "نظام برنامج الولاء"}, "description": {"en": "Award and redeem points, track customer rewards, and enforce loyalty rules.", "ar": "منح واسترداد النقاط، تتبع مكافآت العملاء، وفرض قواعد الولاء."}},
+    {"name": {"en": "Coupon Management", "ar": "إدارة القسائم (Coupons)"}, "description": {"en": "Create coupon codes, define eligibility and limits, and validate redemptions.", "ar": "إنشاء رموز القسائم، تحديد الأهلية والحدود، والتحقق من الاسترداد."}},
+    {"name": {"en": "Discount Engine", "ar": "محرك الخصومات"}, "description": {"en": "Evaluate promotion rules, stacking, eligibility, time windows, and discount calculations.", "ar": "تقييم قواعد العروض الترويجية، التراكم، الأهلية، النوافذ الزمنية، وحسابات الخصم."}},
+    {"name": {"en": "Notification System", "ar": "نظام الإشعارات"}, "description": {"en": "Send and track in-app, email, SMS, or push notifications through configured providers.", "ar": "إرسال وتتبع الإشعارات داخل التطبيق، أو عبر البريد الإلكتروني، أو الرسائل النصية، أو الإشعارات الفورية (Push) من خلال مزودين مُعدين."}},
+    {"name": {"en": "Chat Application", "ar": "تطبيق الدردشة"}, "description": {"en": "Support user accounts, conversations, message delivery, attachments, and online status.", "ar": "دعم حسابات المستخدمين، المحادثات، تسليم الرسائل، المرفقات، وحالة الاتصال."}},
+    {"name": {"en": "Email Client", "ar": "عميل البريد الإلكتروني"}, "description": {"en": "Organize mail accounts, messages, folders, search, drafts, and sending/receiving through supported protocols.", "ar": "تنظيم حسابات البريد، الرسائل، المجلدات، البحث، المسودات، والإرسال/الاستقبال عبر البروتوكولات المدعومة."}},
+    {"name": {"en": "Notes Manager", "ar": "مدير الملاحظات"}, "description": {"en": "Create, organize, search, tag, and synchronize personal or shared notes.", "ar": "إنشاء، تنظيم، بحث، وضع علامات، ومزامنة الملاحظات الشخصية أو المشتركة."}},
+    {"name": {"en": "Password Manager", "ar": "مدير كلمات المرور"}, "description": {"en": "Store encrypted credentials with a master-key design, secure unlock, and autofill where supported.", "ar": "تخزين بيانات الاعتماد المشفرة بتصميم المفتاح الرئيسي (Master-key)، إلغاء القفل الآمن، والملء التلقائي حيثما دُعم."}},
+    {"name": {"en": "To-Do App", "ar": "تطبيق المهام (To-Do)"}, "description": {"en": "Create tasks, due dates, priorities, reminders, and completion lists.", "ar": "إنشاء المهام، تواريخ الاستحقاق، الأولويات، التذكيرات، وقوائم الإنجاز."}},
+    {"name": {"en": "Calendar App", "ar": "تطبيق التقويم"}, "description": {"en": "Manage events, recurring schedules, reminders, and calendar views.", "ar": "إدارة الفعاليات، الجداول المتكررة، التذكيرات، وعروض التقويم."}},
+    {"name": {"en": "File Manager", "ar": "مدير الملفات"}, "description": {"en": "Browse, copy, move, rename, search, and organize files and folders.", "ar": "تصفح، نسخ، نقل، إعادة تسمية، بحث، وتنظيم الملفات والمجلدات."}},
+    {"name": {"en": "Backup Tool", "ar": "أداة النسخ الاحتياطي"}, "description": {"en": "Schedule backups, encrypt archives, verify integrity, and restore selected data.", "ar": "جدولة النسخ الاحتياطي، تشفير الأرشيفات، التحقق من السلامة، واستعادة البيانات المحددة."}},
+    {"name": {"en": "Screen Recorder", "ar": "مسجل الشاشة"}, "description": {"en": "Capture screen or window video, configure audio, and manage recording files.", "ar": "التقاط فيديو الشاشة أو النافذة، تكوين الصوت، وإدارة ملفات التسجيل."}},
+    {"name": {"en": "PDF Converter", "ar": "محويل ملفات PDF"}, "description": {"en": "Convert supported document and image formats to PDF and optionally extract or merge pages.", "ar": "تحويل تنسيقات المستندات والصور المدعومة إلى PDF، واستخراج أو دمج الصفحات اختيارياً."}},
+    {"name": {"en": "Image Editor", "ar": "محرر الصور"}, "description": {"en": "Crop, resize, rotate, annotate, and apply basic image adjustments.", "ar": "قص، تغيير الحجم، تدوير، إضافة تعليقات توضيحية، وتطبيق تعديلات الصور الأساسية."}},
+    {"name": {"en": "Music Player", "ar": "مشغل الموسيقى"}, "description": {"en": "Organize audio libraries, playlists, playback controls, and metadata.", "ar": "تنظيم مكتبات الصوت، قوائم التشغيل، عناصر تحكم التشغيل، والبيانات الوصفية."}},
+    {"name": {"en": "Video Player", "ar": "مشغل الفيديو"}, "description": {"en": "Play supported video formats with subtitles, playback controls, and playlists.", "ar": "تشغيل تنسيقات الفيديو المدعومة مع الترجمات، عناصر تحكم التشغيل، وقوائم التشغيل."}},
+    {"name": {"en": "Weather App", "ar": "تطبيق الطقس"}, "description": {"en": "Display current conditions and forecasts from a configured weather data provider.", "ar": "عرض الظروف الحالية والتوقعات من مزود بيانات طقس مُعد."}},
+    {"name": {"en": "Currency Converter", "ar": "محول العملات"}, "description": {"en": "Convert amounts using dated exchange rates and clearly display the rate source and timestamp.", "ar": "تحويل المبالغ باستخدام أسعار الصرف المؤرخة وعرض مصدر السعر والطابع الزمني بوضوح."}},
+    {"name": {"en": "Calculator Pro", "ar": "الآلة الحاسبة المتقدمة"}, "description": {"en": "Provide arithmetic, scientific functions, calculation history, and configurable precision.", "ar": "توفير العمليات الحسابية، الوظائف العلمية، سجل الحسابات، والدقة القابلة للتكوين."}},
+    {"name": {"en": "Unit Converter", "ar": "محول الوحدات"}, "description": {"en": "Convert measurement units using defined conversion factors and categories.", "ar": "تحويل وحدات القياس باستخدام عوامل التحويل والفئات المحددة."}},
+    {"name": {"en": "Expense Splitter", "ar": "مقسم المصروفات"}, "description": {"en": "Split shared bills, assign participants, account for unequal shares, and calculate settlements.", "ar": "تقسيم الفواتير المشتركة، تعيين المشاركين، مراعاة الحصص غير المتساوية، وحساب التسويات."}},
+    {"name": {"en": "Budget Planner", "ar": "مخطط الميزانية"}, "description": {"en": "Plan spending categories, forecast cash flow, and compare planned versus actual spending.", "ar": "تخطيط فئات الإنفاق، توقع التدفق النقدي، ومقارنة الإنفاق المخطط بالفعلي."}},
+    {"name": {"en": "Habit Tracker", "ar": "متعقب العادات"}, "description": {"en": "Track recurring habits, streaks, reminders, and progress over time.", "ar": "تتبع العادات المتكررة، السلاسل، التذكيرات، والتقدم بمرور الوقت."}},
+    {"name": {"en": "Fitness Tracker", "ar": "متعقب اللياقة البدنية"}, "description": {"en": "Record activities, workouts, measurements, and personal progress.", "ar": "تسجيل الأنشطة، التمارين، القياسات، والتقدم الشخصي."}},
+    {"name": {"en": "Diet Planner", "ar": "مخطط النظام الغذائي"}, "description": {"en": "Plan meals, record food intake, and estimate nutrition from a maintained food database.", "ar": "تخطيط الوجبات، تسجيل تناول الطعام، وتقدير التغذية من قاعدة بيانات الأغذية المُصانة."}},
+    {"name": {"en": "Medicine Reminder", "ar": "تذكير الأدوية"}, "description": {"en": "Schedule medication reminders and record acknowledgements; not a substitute for clinical advice.", "ar": "جدولة تذكيرات الأدوية وتسجيل الإقرارات؛ ليس بديلاً عن النصيحة السريرية."}},
+    {"name": {"en": "Blood Donor Finder", "ar": "باحث عن متبرعي الدم"}, "description": {"en": "Connect eligible donors with donation requests while protecting personal information.", "ar": "ربط المتبرعين المؤهلين بطلبات التبرع مع حماية المعلومات الشخصية."}},
+    {"name": {"en": "Lost & Found System", "ar": "نظام المفقودات والموجودات"}, "description": {"en": "Register lost and found items, match reports, and manage claims and handover.", "ar": "تسجيل العناصر المفقودة والموجودة، مطابقة التقارير، وإدارة المطالبات والتسليم."}},
+    {"name": {"en": "Alumni Management", "ar": "إدارة الخريجين"}, "description": {"en": "Maintain graduate profiles, reunions, communications, mentorship, and alumni engagement.", "ar": "صيانة ملفات الخريجين، اللقاءات، الاتصالات، الإرشاد، ومشاركة الخريجين."}},
+    {"name": {"en": "Freelancer Management", "ar": "إدارة المستقلين (Freelancers)"}, "description": {"en": "Track clients, projects, contracts, time, deliverables, invoices, and payments.", "ar": "تتبع العملاء، المشاريع، العقود، الوقت، التسليمات، الفواتير، والمدفوعات."}},
+    {"name": {"en": "Freelance Marketplace", "ar": "سوق العمل الحر (Freelance Marketplace)"}, "description": {"en": "Connect clients and freelancers through listings, proposals, milestones, reviews, and payments.", "ar": "ربط العملاء والمستقلين من خلال القوائم، المقترحات، المراحل، التقييمات، والمدفوعات."}},
+    {"name": {"en": "Job Portal System", "ar": "نظام بوابات الوظائف"}, "description": {"en": "Publish vacancies, support candidate profiles, applications, search, and employer workflows.", "ar": "نشر الوظائف الشاغرة، دعم ملفات المرشحين، الطلبات، البحث، وعمليات أصحاب العمل."}},
+    {"name": {"en": "Recruitment System", "ar": "نظام التوظيف والاستقطاب"}, "description": {"en": "Manage vacancies, candidate pipelines, interviews, evaluations, and hiring decisions.", "ar": "إدارة الشواغر، مسارات المرشحين، المقابلات، التقييمات، وقرارات التوظيف."}},
+    {"name": {"en": "Resume Builder", "ar": "منشئ السير الذاتية"}, "description": {"en": "Create structured resumes from user-provided details and export them to PDF or document formats.", "ar": "إنشاء سير ذاتية منظمة من التفاصيل المقدمة من المستخدم وتصديرها إلى تنسيقات PDF أو المستندات."}},
+    {"name": {"en": "Portfolio Builder", "ar": "منشئ ملفات الإنجاز (Portfolio)"}, "description": {"en": "Help users create and publish portfolio pages, projects, skills, and contact information.", "ar": "مساعدة المستخدمين في إنشاء ونشر صفحات الملف الشخصي، المشاريع، المهارات، ومعلومات الاتصال."}}
+  ]
+}
+];
+
+const $ = s => document.querySelector(s);
+const search = $('#search'), categorySelect = $('#categorySelect'), langSelect = $('#langSelect');
+const catalogue = $('#catalogue'), nav = $('#categoryNav'), chips = $('#chips');
+let activeCategory = '';
+let selectedIdea = null;
+
+const iconFor = name => (typeof name === 'string' ? name : name.en).split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const allCount = catalogueData.reduce((n,c)=>n+c.items.length,0);
+
+function getLocalizedText(obj, lang) {
+  if (typeof obj === 'string') return obj;
+  if (lang === 'en') return obj.en;
+  if (lang === 'ar') return obj.ar;
+  return `${obj.en} / ${obj.ar}`;
+}
+
+catalogueData.forEach(cat=>{
+  const catNameEn = cat.category.en;
+  const opt=document.createElement('option');
+  opt.value = catNameEn;
+  opt.textContent = `${cat.category.en} / ${cat.category.ar}`;
+  categorySelect.append(opt);
+
+  const b=document.createElement('button');
+  b.className='nav-item';
+  b.dataset.category = catNameEn;
+  b.innerHTML=`<span>${cat.category.en} / ${cat.category.ar}</span><span class="count">${cat.items.length}</span>`;
+  b.addEventListener('click',()=>{
+    activeCategory = activeCategory === catNameEn ? '' : catNameEn;
+    categorySelect.value = activeCategory;
+    render();
+    if(activeCategory) document.getElementById('section-'+slug(activeCategory))?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  nav.append(b);
+  
+  const chip=document.createElement('button');
+  chip.className='chip';
+  chip.textContent = `${cat.category.en} / ${cat.category.ar}`;
+  chip.dataset.category = catNameEn;
+  chip.addEventListener('click',()=>{
+    activeCategory = activeCategory === catNameEn ? '' : catNameEn;
+    categorySelect.value = activeCategory;
+    render();
+  });
+  chips.append(chip);
+});
+
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+
+function render(){
+  const q = search.value.trim().toLowerCase();
+  const currentLang = langSelect.value;
+  
+  // Update document dir based on selection
+  if (currentLang === 'ar') {
+    document.getElementById('bodyRoot').setAttribute('dir', 'rtl');
+  } else {
+    document.getElementById('bodyRoot').setAttribute('dir', 'ltr');
+  }
+
+  const filtered = catalogueData.map(cat => ({
+    categoryObj: cat.category,
+    categoryKey: cat.category.en,
+    items: cat.items.filter(item => {
+      const nameStr = `${item.name.en} ${item.name.ar}`.toLowerCase();
+      const descStr = `${item.description.en} ${item.description.ar}`.toLowerCase();
+      const catStr = `${cat.category.en} ${cat.category.ar}`.toLowerCase();
+      return (!activeCategory || cat.category.en === activeCategory) &&
+             (!q || (nameStr + ' ' + descStr + ' ' + catStr).includes(q));
+    })
+  })).filter(cat => cat.items.length);
+
+  const count = filtered.reduce((n,c)=>n+c.items.length,0);
+  $('#resultsText').textContent = currentLang === 'ar' ? `عرض ${count} من أصل ${allCount} فكرة` : `Showing ${count} of ${allCount} ideas`;
+
+  nav.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.category === activeCategory));
+  chips.querySelectorAll('.chip').forEach(b=>b.classList.toggle('active', b.dataset.category === activeCategory));
+
+  if(!filtered.length){
+    catalogue.innerHTML = `<div class="empty"><h2>${currentLang==='ar'?'لا توجد أفكار مطابقة':'No matching ideas'}</h2><p>${currentLang==='ar'?'جرب مصطلح بحث مختلف.':'Try a different search term.'}</p></div>`;
+    return;
+  }
+
+  catalogue.innerHTML = filtered.map(cat => `
+    <section class="category" id="section-${slug(cat.categoryKey)}">
+     <div class="cat-head"><h2>${getLocalizedText(cat.categoryObj, currentLang)}</h2><span>${cat.items.length} ${currentLang==='ar'?'أفكار':'ideas'}</span></div>
+     <div class="cards">${cat.items.map(item => `
+      <article class="card">
+       <div class="card-top"><div class="icon" aria-hidden="true">${iconFor(item.name)}</div><h3>${getLocalizedText(item.name, currentLang)}</h3></div>
+       <p>${getLocalizedText(item.description, currentLang)}</p>
+       <div class="card-bottom"><span class="tag">${getLocalizedText(cat.categoryObj, currentLang)}</span><button class="small-btn" data-open-en="${escapeAttr(item.name.en)}" data-cat="${escapeAttr(cat.categoryKey)}">${currentLang==='ar'?'استكشاف ↗':'Explore ↗'}</button></div>
+      </article>`).join('')}</div>
+    </section>`).join('');
+
+  catalogue.querySelectorAll('[data-open-en]').forEach(btn => btn.addEventListener('click', () => {
+    const cat = catalogueData.find(c => c.category.en === btn.dataset.cat);
+    const item = cat.items.find(i => i.name.en === btn.dataset.open-en || i.name.en === btn.getAttribute('data-open-en'));
+    selectedIdea = {
+      name: getLocalizedText(item.name, langSelect.value),
+      category: getLocalizedText(cat.category, langSelect.value),
+      description: getLocalizedText(item.description, langSelect.value)
+    };
+    $('#modalTitle').textContent = selectedIdea.name;
+    $('#modalCategory').textContent = selectedIdea.category;
+    $('#modalDescription').textContent = selectedIdea.description;
+    $('#modalBackdrop').classList.add('open');
+  }));
+}
+
+function escapeAttr(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+search.addEventListener('input', render);
+categorySelect.addEventListener('change', () => { activeCategory = categorySelect.value; render(); });
+langSelect.addEventListener('change', render);
+$('#clearBtn').addEventListener('click', () => { search.value = ''; activeCategory = ''; categorySelect.value = ''; langSelect.value = 'bilingual'; render(); });
+$('#printBtn').addEventListener('click', () => window.print());
+$('#closeModal').addEventListener('click', () => $('#modalBackdrop').classList.remove('open'));
+$('#modalBackdrop').addEventListener('click', e => { if(e.target.id === 'modalBackdrop') $('#modalBackdrop').classList.remove('open'); });
+
+$('#copyIdea').addEventListener('click', async () => {
+ if(!selectedIdea) return;
+ const text = `${selectedIdea.name}\nCategory/الفئة: ${selectedIdea.category}\nConcept/المفهوم: ${selectedIdea.description}`;
+ try{
+  await navigator.clipboard.writeText(text);
+  $('#copyIdea').textContent = 'Copied! / تم النسخ!';
+  setTimeout(()=>$('#copyIdea').textContent='Copy summary / نسخ الملخص', 1500);
+ }catch(e){
+  const area = document.createElement('textarea');
+  area.value = text;
+  document.body.append(area);
+  area.select();
+  document.execCommand('copy');
+  area.remove();
+  $('#copyIdea').textContent = 'Copied!';
+ }
+});
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape') $('#modalBackdrop').classList.remove('open'); });
+render();
+</script>
+</body>
+</html>
